@@ -31,12 +31,15 @@ def zmq_publish_command(command, zmq_addr):
         rc = os.system(command)
         sys.exit(rc)
     else:
+        # parent (master)
         ctx = zmq.Context()
         sock = ctx.socket(zmq.PUB)
         sock.bind(zmq_addr)
-        
-        # parent (master)
         done = False
+        
+        # this allows clients to connect/reconnect, otherwise they'll always miss the first message
+        time.sleep(0.5)
+
         while not done:
             data = os.read(fd, 8192)
             if data:
