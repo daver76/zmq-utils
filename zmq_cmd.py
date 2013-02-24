@@ -50,7 +50,7 @@ def zmq_publish_command(command, zmq_addr):
 def zmq_subscribe_output(zmq_addr, fd_out=sys.stdout.fileno()):
     """ Subscribe and print output from zmq_addr 
     """
-    # TODO: First message sent by publishe is always dropped?
+    # TODO: First message sent by publisher is always dropped?
     ctx = zmq.Context()
     sock = ctx.socket(zmq.SUB)
     sock.setsockopt(zmq.SUBSCRIBE, OUTPUT_TOPIC)
